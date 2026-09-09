@@ -1,15 +1,33 @@
 package com.aeropelican.notificationservice.entities;
-import jakarta.persistence.*;
-import lombok.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(
-        name = "notification_template",
+        name = "notification_delivery",
         indexes = {
                 @Index(
-                        name = "idx_template_event_type",
-                        columnList = "event_type"
+                        name = "idx_delivery_status_scheduled",
+                        columnList = "status, scheduled_at"
+                ),
+                @Index(
+                        name = "idx_delivery_notification",
+                        columnList = "notification_id"
                 )
         }
 )
@@ -18,62 +36,54 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NotificationTemplate {
+public class NotificationDelivery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(
-            name = "template_code",
-            nullable = false,
-            unique = true,
-            length = 100
-    )
-    private String templateCode;
+    @Column(name = "notification_id", nullable = false)
+    private Long notificationId;
 
-    @Column(
-            name = "event_type",
-            nullable = false,
-            length = 100
-    )
-    private String eventType;
+    @Column(nullable = false, length = 30)
+    private String channel;
 
-    @Column(
-            name = "description",
-            length = 255
-    )
-    private String description;
+    @Column(nullable = false, length = 255)
+    private String recipient;
 
-    @Column(
-            name = "active",
-            nullable = false
-    )
-    private Boolean active = true;
+    @Column(name = "template_id", nullable = false)
+    private Long templateId;
 
-    @Column(
-            name = "created_at",
-            nullable = false,
-            updatable = false
-    )
+    @Column(nullable = false, length = 30)
+    private String status;
+
+    @Column(name = "attempt_count", nullable = false)
+    private Integer attemptCount = 0;
+
+    @Column(name = "last_error", columnDefinition = "TEXT")
+    private String lastError;
+
+    @Column(name = "scheduled_at")
+    private LocalDateTime scheduledAt;
+
+    @Column(name = "sent_at")
+    private LocalDateTime sentAt;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(
-            name = "updated_at",
-            nullable = false
-    )
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
-        createdAt = now;
-        updatedAt = now;
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }
-
