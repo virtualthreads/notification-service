@@ -1,7 +1,7 @@
 package com.aeropelican.notificationservice.controller;
 
-import com.aeropelican.notificationservice.dto.NotificationResponseDto;
-import com.aeropelican.notificationservice.service.NotificationQueryService;
+import com.aeropelican.notificationservice.dto.NotificationResponse;
+import com.aeropelican.notificationservice.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,13 +31,19 @@ public class NotificationController {
         return ResponseEntity.ok(notifications);
     }
 
+    public NotificationController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<NotificationResponseDto> getNotificationById(
+    public ResponseEntity<NotificationResponse> getNotificationById(
             @PathVariable Long id) {
 
-        NotificationResponseDto notification =
-                notificationQueryService.getNotificationById(id);
+        NotificationResponse response =
+                notificationService.getNotificationById(id);
 
-        return ResponseEntity.ok(notification);
+        return ResponseEntity.ok(response);
     }
 }

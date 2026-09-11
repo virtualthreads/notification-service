@@ -1,29 +1,16 @@
-package com.aeropelican.notificationservice.entity;
+package com.aeropelican.notificationservice.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+public class NotificationResponse {
 
-@Entity
-@Table(name = "notification")
-public class Notification {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long notificationId;
-
     private Long customerId;
-
     private Long notificationTemplateId;
-
     private String status;
 
-    public Notification() {
+    public NotificationResponse() {
     }
 
-    public Notification(
+    public NotificationResponse(
             Long notificationId,
             Long customerId,
             Long notificationTemplateId,
