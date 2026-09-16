@@ -43,7 +43,7 @@ public class NotificationDelivery {
     @Column(name = "recipient", nullable = false, length = 255)
     private String recipient;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "template_id", nullable = false)
     private NotificationTemplate template;
 
