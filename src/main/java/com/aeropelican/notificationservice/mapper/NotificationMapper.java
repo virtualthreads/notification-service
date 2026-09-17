@@ -1,7 +1,6 @@
 package com.aeropelican.notificationservice.mapper;
 
-import com.aeropelican.notificationservice.dto.NotificationResponseDto;
-import com.aeropelican.notificationservice.entities.Notification;
+import com.aeropelican.notificationservice.entity.Notification;
 import org.springframework.stereotype.Component;
 
 @Component
