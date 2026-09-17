@@ -1,12 +1,24 @@
 package com.aeropelican.notificationservice.service;
 
-import com.aeropelican.notificationservice.dto.NotificationResponseDto;
+import com.aeropelican.notificationservice.dto.response.NotificationResponse;
+import com.aeropelican.notificationservice.entity.NotificationDelivery;
+import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
-public interface NotificationQueryService {
+@Service
+public class NotificationQueryService {
 
-    List<NotificationResponseDto> getAllNotifications();
+    public List<NotificationResponse> getAllNotifications() {
+        return Collections.emptyList();
+    }
 
-    NotificationResponseDto getNotificationById(Long id);
+    public NotificationResponse getNotificationById(Long id) {
+        return new NotificationResponse();
+    }
+
+    public List<NotificationDelivery> getDeliveriesByNotificationId(Long id) {
+        return Collections.emptyList();
+    }
 }
