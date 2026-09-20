@@ -1,7 +1,7 @@
 package com.aeropelican.notificationservice.service;
 
 import com.aeropelican.notificationservice.dto.NotificationResponse;
-import com.aeropelican.notificationservice.entity.Notification;
+import com.aeropelican.notificationservice.entities.Notification;
 import com.aeropelican.notificationservice.exception.NotificationNotFoundException;
 import com.aeropelican.notificationservice.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ public class notificationservice {
 
     private final NotificationRepository notificationRepository;
 
-    public NotificationService(NotificationRepository notificationRepository) {
+    public notificationservice(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
     }
 
@@ -30,9 +30,9 @@ public class notificationservice {
     private NotificationResponse mapToResponse(Notification notification) {
 
         return new NotificationResponse(
-                notification.getNotificationId(),
+                notification.getId(),
                 notification.getCustomerId(),
-                notification.getNotificationTemplateId(),
+                null,
                 notification.getStatus()
         );
     }

@@ -37,7 +37,9 @@ public class NotificationServiceImpl implements NotificationQueryService {
     public NotificationResponseDto getNotificationById(Long id) {
 
         Notification notification = notificationRepository.findById(id)
-                .orElseThrow(() -> new NotificationNotFoundException(id));
+                .orElseThrow(() ->
+                        new NotificationNotFoundException(
+                                "Notification not found with id: " + id ));
 
         return notificationMapper.toDto(notification);
     }

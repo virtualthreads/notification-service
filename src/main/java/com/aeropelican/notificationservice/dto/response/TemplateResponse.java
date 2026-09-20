@@ -13,17 +13,19 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotificationResponse {
+public class TemplateResponse {
 
-    private Long notificationId;
+    private Long id;
 
-    private String eventId;
+    private String templateCode;
 
     private String eventType;
 
-    private String customerCode;
+    private String description;
 
-    private String status;
+    private boolean active;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }
