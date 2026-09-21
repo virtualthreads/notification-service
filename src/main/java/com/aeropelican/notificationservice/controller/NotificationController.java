@@ -1,12 +1,14 @@
 package com.aeropelican.notificationservice.controller;
 
-import com.aeropelican.notificationservice.dto.NotificationResponse;
-import com.aeropelican.notificationservice.service.NotificationService;
+import com.aeropelican.notificationservice.dto.request.CreateNotificationRequest;
+import com.aeropelican.notificationservice.dto.response.NotificationResponse;
+import com.aeropelican.notificationservice.entity.NotificationDelivery;
+import com.aeropelican.notificationservice.service.NotificationQueryService;
+import com.aeropelican.notificationservice.service.impl.NotificationServiceImpl;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,36 +16,31 @@ import java.util.List;
 @RequestMapping("/api/v1/notifications")
 public class NotificationController {
 
-    private final NotificationQueryService notificationQueryService;
+    private final NotificationServiceImpl notificationService;
+    private final NotificationQueryService queryService;
 
-    public NotificationController(
-            NotificationQueryService notificationQueryService) {
+    public NotificationController(NotificationServiceImpl notificationService, NotificationQueryService queryService) {
+        this.notificationService = notificationService;
+        this.queryService = queryService;
+    }
 
-        this.notificationQueryService = notificationQueryService;
+    @PostMapping
+    public ResponseEntity<NotificationResponse> createNotification(@Valid @RequestBody CreateNotificationRequest request) {
+        return new ResponseEntity<>(notificationService.createNotification(request), HttpStatus.ACCEPTED);
     }
 
     @GetMapping
-    public ResponseEntity<List<NotificationResponseDto>> getAllNotifications() {
-
-        List<NotificationResponseDto> notifications =
-                notificationQueryService.getAllNotifications();
-
-        return ResponseEntity.ok(notifications);
+    public ResponseEntity<List<NotificationResponse>> getAllNotifications() {
+        return ResponseEntity.ok(queryService.getAllNotifications());
     }
-
-    public NotificationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
-
-
 
     @GetMapping("/{id}")
-    public ResponseEntity<NotificationResponse> getNotificationById(
-            @PathVariable Long id) {
+    public ResponseEntity<NotificationResponse> getNotificationById(@PathVariable Long id) {
+        return ResponseEntity.ok(queryService.getNotificationById(id));
+    }
 
-        NotificationResponse response =
-                notificationService.getNotificationById(id);
-
-        return ResponseEntity.ok(response);
+    @GetMapping("/{id}/deliveries")
+    public ResponseEntity<List<NotificationDelivery>> getNotificationDeliveries(@PathVariable Long id) {
+        return ResponseEntity.ok(queryService.getDeliveriesByNotificationId(id));
     }
 }

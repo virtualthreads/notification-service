@@ -45,4 +45,26 @@ public class NotificationTemplate {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    // Standard Getters and Setters (Fixes 'cannot find symbol method' errors)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getTemplateCode() { return templateCode; }
+    public void setTemplateCode(String templateCode) { this.templateCode = templateCode; }
+
+    public String getEventType() { return eventType; }
+    public void setEventType(String eventType) { this.eventType = eventType; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

@@ -1,47 +1,62 @@
-package com.aeropelican.notificationservice.dto;
+package com.aeropelican.notificationservice.dto.response;
 
+import com.aeropelican.notificationservice.entity.NotificationStatus;
 import java.time.LocalDateTime;
 
-public class NotificationResponseDto {
+public class NotificationResponseDTO {
 
     private Long id;
+    private Long customerId;
+    private Long templateId;
     private String eventId;
     private String eventType;
-    private Long customerId;
     private String payload;
-    private String status;
+    private NotificationStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public NotificationResponseDto() {
+    // Default Constructor
+    public NotificationResponseDTO() {
     }
 
-    public NotificationResponseDto(
-            Long id,
-            String eventId,
-            String eventType,
-            Long customerId,
-            String payload,
-            String status,
-            LocalDateTime createdAt,
-            LocalDateTime updatedAt) {
-
+    // All-Args Constructor (Must match class name NotificationResponseDTO exactly)
+    public NotificationResponseDTO(Long id, Long customerId, Long templateId, String eventId,
+                                   String eventType, String payload, NotificationStatus status,
+                                   LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
+        this.customerId = customerId;
+        this.templateId = templateId;
         this.eventId = eventId;
         this.eventType = eventType;
-        this.customerId = customerId;
         this.payload = payload;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
     }
 
     public String getEventId() {
@@ -60,14 +75,6 @@ public class NotificationResponseDto {
         this.eventType = eventType;
     }
 
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
     public String getPayload() {
         return payload;
     }
@@ -76,11 +83,11 @@ public class NotificationResponseDto {
         this.payload = payload;
     }
 
-    public String getStatus() {
+    public NotificationStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(NotificationStatus status) {
         this.status = status;
     }
 
